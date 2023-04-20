@@ -1,5 +1,6 @@
 package com.sdk.animekmm.android.component
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,25 +31,29 @@ fun AnimeItem(
     onClick: () -> Unit,
 ) {
     Card(
-        modifier = modifier.height(270.dp),
+        modifier = modifier
+            .border(1.dp, Color.Black.copy(alpha = .5f), RoundedCornerShape(10.dp))
+            .height(270.dp),
         shape = RoundedCornerShape(10.dp),
         onClick = onClick
     ) {
-        Row(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize()) {
             AsyncImage(
                 model = anime.image,
                 contentDescription = "image",
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
-                    .weight(1.2f)
+                    .weight(1f)
                     .fillMaxSize()
                     .clip(RoundedCornerShape(topEnd = 12.dp, bottomEnd = 12.dp))
             )
-            Column(modifier = Modifier.padding(10.dp).weight(1f)) {
+            Column(modifier = Modifier.padding(10.dp)) {
                 Text(
                     text = anime.kanji,
                     style = MaterialTheme.typography.h6,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(
@@ -56,12 +61,6 @@ fun AnimeItem(
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.body1,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Spacer(modifier = Modifier.height(5.dp))
-                Text(
-                    text = anime.about,
-                    style = MaterialTheme.typography.caption,
                     overflow = TextOverflow.Ellipsis
                 )
             }

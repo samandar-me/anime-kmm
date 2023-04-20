@@ -23,36 +23,35 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyApplicationTheme {
-                val scaffoldState = rememberScaffoldState()
-                val navController = rememberNavController()
-                val backStack by navController.currentBackStackEntryAsState()
-                val title = when (backStack?.destination?.route) {
-                    Screen.Main.route -> "Anime Characters"
-                    Screen.Detail.route -> "Anime Details"
-                    else -> ""
+            val scaffoldState = rememberScaffoldState()
+            val navController = rememberNavController()
+            val backStack by navController.currentBackStackEntryAsState()
+            val title = when (backStack?.destination?.route) {
+                Screen.Main.route -> "Anime Characters"
+                Screen.Detail.route -> "Anime Details"
+                else -> ""
+            }
+            Scaffold(
+                scaffoldState = scaffoldState,
+                topBar = {
+                    CustomTopAppBar(
+                        isNavVisible = title == "Anime Details",
+                        onBack = { navController.popBackStack() },
+                        title = title
+                    )
                 }
-                Scaffold(
-                    scaffoldState = scaffoldState,
-                    topBar = {
-                        CustomTopAppBar(
-                            isNavVisible = title == "Anime Details",
-                            onBack = { navController.popBackStack() },
-                            title = title
-                        )
+            ) { padding ->
+                NavHost(
+                    navController = navController,
+                    startDestination = Screen.Main.route,
+                    modifier = Modifier.padding(padding)
+                ) {
+                    composable(route = Screen.Main.route) {
+                        MainScreen(navHostController = navController)
                     }
-                ) { padding ->
-                    NavHost(
-                        navController = navController,
-                        startDestination = Screen.Main.route,
-                        modifier = Modifier.padding(padding)
-                    ) {
-                        composable(route = Screen.Main.route) {
-                            MainScreen(navHostController = navController)
-                        }
-                        composable(route = Screen.Detail.route) {
-                            DetailScreen(id = 1)
-                        }
+                    composable(route = Screen.Detail.route) {
+                        val id = it.arguments?.getString("id") ?: "45627"
+                        DetailScreen(id = id.toInt())
                     }
                 }
             }
