@@ -32,7 +32,7 @@ fun AnimeItem(
 ) {
     Card(
         modifier = modifier
-            .border(1.dp, Color.Black.copy(alpha = .5f), RoundedCornerShape(10.dp))
+            .border(2.dp, Color.Black.copy(alpha = .5f), RoundedCornerShape(10.dp))
             .height(270.dp),
         shape = RoundedCornerShape(10.dp),
         onClick = onClick
@@ -45,7 +45,7 @@ fun AnimeItem(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxSize()
-                    .clip(RoundedCornerShape(topEnd = 12.dp, bottomEnd = 12.dp))
+                    .clip(RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp))
             )
             Column(modifier = Modifier.padding(10.dp)) {
                 Text(

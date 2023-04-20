@@ -13,6 +13,6 @@ internal class AnimeRepositoryImpl(
     }
 
     override suspend fun getCharacterById(id: Int): Anime {
-        return dataSource.getCharacterById(id).toAnime()
+        return dataSource.getCharacterById(id).data.toAnime()
     }
 }

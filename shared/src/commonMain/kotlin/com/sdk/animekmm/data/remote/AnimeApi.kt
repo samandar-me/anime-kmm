@@ -9,6 +9,6 @@ internal class AnimeApi : ApiService() {
     suspend fun getAllCharacters(): AnimeDTO =
         client.get("$BASE_URL/top/characters").body()
 
-    suspend fun getCharacterById(id: Int): Data =
+    suspend fun getCharacterById(id: Int): DataResponse =
         client.get("$BASE_URL/characters/$id").body()
 }
